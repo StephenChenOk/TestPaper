@@ -1,70 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/home_app_bar"
+    <!--Toolbar-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_test_paper"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:fitsSystemWindows="true">
+        android:layout_height="?attr/actionBarSize"
+        android:fitsSystemWindows="true"
+        app:navigationIcon="@drawable/ic_navigate_before_32dp"
+        app:title="试纸检测结果"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        app:titleTextColor="#777" />
 
-        <android.support.design.widget.CollapsingToolbarLayout
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eee" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp">
+
+        <ImageView
+            android:id="@+id/iv_test_paper"
+            android:layout_width="250dp"
+            android:layout_height="180dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/wait" />
+
+        <TextView
+            android:id="@+id/select_test_paper"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="喝杯咖啡 精心等待"
+            android:layout_marginBottom="5dp"
+            android:textSize="20sp"
+            android:textColor="#111"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/jie_fang_bei"
-                android:fitsSystemWindows="true" />
+    <View
+        android:layout_marginTop="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:background="#eee" />
 
-            <android.support.v7.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                app:layout_collapseMode="pin" />
-
-            <TextView
-                android:id="@+id/search_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="155dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:text="尿试纸检测"
-                android:textSize="18sp"
-                app:layout_collapseMode="pin" />
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_test_paper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_marginTop="10dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:background="#eee" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                android:textSize="100dp" />
-
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

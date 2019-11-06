@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<litepal>
+
+    <!--数据库名-->
+    <dbname value="TestPaperDB"/>
+    <!--版本号-->
+    <version value="1"/>
+
+    <!--用于指定所有映射集合-->
+    <list>
+        <mapping class="com.chen.fy.testpaper.beans.User"/>
+    </list>
+
+</litepal>

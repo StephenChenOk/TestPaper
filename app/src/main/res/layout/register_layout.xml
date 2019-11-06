@@ -79,6 +79,7 @@
             android:drawableLeft="@drawable/ic_username_24dp"
             android:drawablePadding="20dp"
             android:hint="密码"
+            android:inputType="textPassword"
             android:singleLine="true" />
 
         <RelativeLayout
@@ -99,19 +100,10 @@
                 android:inputType="textPassword"
                 android:maxLines="1" />
 
-            <ImageView
-                android:id="@+id/iv_pwd_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/ic_visibility_off_24dp" />
-
         </RelativeLayout>
 
         <Button
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="40dp"
@@ -123,7 +115,6 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/btn_login_to_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="230dp"

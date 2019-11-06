@@ -15,7 +15,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38">
+        app:layout_constraintVertical_bias="0.35">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.62">
+        app:layout_constraintVertical_bias="0.65">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -52,6 +52,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:text="图片识别"
             android:textSize="18sp" />
     </LinearLayout>
