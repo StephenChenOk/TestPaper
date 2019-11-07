@@ -14,12 +14,22 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="30dp">
+
+            <ImageView
+                android:id="@+id/iv_return"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_navigate_before_white_32dp"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 android:src="@mipmap/ic_launcher_foreground"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -28,7 +38,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="130dp"
+                android:layout_marginTop="150dp"
                 android:text="与我们一起"
                 android:textColor="#efefef"
                 android:textSize="25sp"
@@ -39,7 +49,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="170dp"
+                android:layout_marginTop="190dp"
                 android:text="没有账号?赶快注册！"
                 android:textColor="#ddd"
                 android:textSize="20sp"
@@ -115,11 +125,12 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/tv_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="230dp"
+            android:layout_marginLeft="300dp"
             android:layout_marginTop="20dp"
-            android:text="一切都从注册开始说起"
+            android:text="返回登入"
             android:textColor="#777"
             android:textSize="15sp" />
 

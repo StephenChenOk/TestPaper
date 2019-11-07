@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="喝杯咖啡 精心等待"
+            android:text="喝杯咖啡 静心等待"
             android:layout_marginBottom="5dp"
             android:textSize="20sp"
             android:textColor="#111"
