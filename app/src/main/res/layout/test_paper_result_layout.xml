@@ -22,33 +22,110 @@
         android:layout_height="1dp"
         android:background="#eee" />
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp">
+        android:layout_height="280dp">
 
         <ImageView
             android:id="@+id/iv_test_paper"
             android:layout_width="250dp"
             android:layout_height="180dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/wait" />
+            android:src="@drawable/wait"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/select_test_paper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="喝杯咖啡 静心等待"
-            android:layout_marginBottom="5dp"
-            android:textSize="20sp"
+            android:layout_marginTop="3dp"
+            android:text="All:"
             android:textColor="#111"
-            android:layout_alignParentBottom="true"/>
-    </RelativeLayout>
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/iv_test_paper" />
+
+        <TextView
+            android:id="@+id/tv_crooked"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Crooked:"
+            android:textColor="#333"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/tv_brief"
+            app:layout_constraintTop_toBottomOf="@+id/select_test_paper" />
+
+        <TextView
+            android:id="@+id/tv_brief"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Brief:"
+            android:textColor="#333"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toRightOf="@+id/tv_crooked"
+            app:layout_constraintRight_toLeftOf="@+id/tv_stain"
+            app:layout_constraintTop_toBottomOf="@+id/select_test_paper" />
+
+        <TextView
+            android:id="@+id/tv_stain"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Stain:"
+            android:textColor="#333"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toRightOf="@+id/tv_brief"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/select_test_paper" />
+
+        <TextView
+            android:id="@+id/tv_burrs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Burrs:"
+            android:textColor="#333"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/tv_sign"
+            app:layout_constraintTop_toBottomOf="@+id/tv_crooked" />
+
+        <TextView
+            android:id="@+id/tv_sign"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Sign:"
+            android:textColor="#333"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toRightOf="@+id/tv_burrs"
+            app:layout_constraintRight_toLeftOf="@+id/tv_fold"
+            app:layout_constraintTop_toBottomOf="@+id/tv_brief" />
+
+        <TextView
+            android:id="@+id/tv_fold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Fold:"
+            android:textColor="#333"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toRightOf="@+id/tv_sign"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_stain" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <View
-        android:layout_marginTop="3dp"
         android:layout_width="match_parent"
         android:layout_height="7dp"
+        android:layout_marginTop="3dp"
         android:background="#eee" />
 
     <android.support.v7.widget.RecyclerView

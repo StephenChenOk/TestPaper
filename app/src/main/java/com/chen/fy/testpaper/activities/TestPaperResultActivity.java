@@ -27,6 +27,9 @@ import com.chen.fy.testpaper.R;
 import com.chen.fy.testpaper.adapters.TestPaperAdapter;
 import com.chen.fy.testpaper.beans.Images;
 import com.chen.fy.testpaper.beans.TestPaperInfo;
+import com.chen.fy.testpaper.beans.TestResult;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoActivity;
 import com.jph.takephoto.compress.CompressConfig;
@@ -35,6 +38,9 @@ import com.jph.takephoto.model.InvokeParam;
 import com.jph.takephoto.model.TContextWrap;
 import com.jph.takephoto.model.TResult;
 import com.jph.takephoto.permission.PermissionManager;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -96,6 +102,26 @@ public class TestPaperResultActivity extends TakePhotoActivity {
 
     private TextView tvSelectPaper;
 
+    private TextView tvCrooked;
+    private TextView tvBrief;
+    private TextView tvStain;
+    private TextView tvBurrs;
+    private TextView tvSign;
+    private TextView tvFold;
+
+    /**
+     * 服务器返回的检测图片集合
+     */
+    private List<Images> cropImages = null;
+    private List<Images> divideImages = null;
+    private List<Images> resultImages = null;
+    private List<Images> worryImages = null;
+
+    /**
+     * 服务器返回的检测信息
+     */
+    private TestResult mTestResult;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +150,12 @@ public class TestPaperResultActivity extends TakePhotoActivity {
         imageView = findViewById(R.id.iv_test_paper);
         recyclerView = findViewById(R.id.rv_test_paper);
         tvSelectPaper = findViewById(R.id.select_test_paper);
+        tvCrooked = findViewById(R.id.tv_crooked);
+        tvBrief = findViewById(R.id.tv_brief);
+        tvStain = findViewById(R.id.tv_stain);
+        tvBurrs = findViewById(R.id.tv_burrs);
+        tvSign = findViewById(R.id.tv_sign);
+        tvFold = findViewById(R.id.tv_fold);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +175,7 @@ public class TestPaperResultActivity extends TakePhotoActivity {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private void initData() {
         if (list == null) {
             list = new ArrayList<>();
@@ -178,7 +211,23 @@ public class TestPaperResultActivity extends TakePhotoActivity {
 
         adapter.notifyDataSetChanged();
 
-        tvSelectPaper.setText("扣出试纸部分");
+        if (mTestResult != null) {
+            tvCrooked.setText("Crooked：" + mTestResult.getCrooked());
+            tvBrief.setText("Brief：" + mTestResult.getBrief());
+            tvStain.setText("Stain：" + mTestResult.getStain());
+            tvBurrs.setText("Burrs：" + mTestResult.getBurrs());
+            tvSign.setText("Sign：" + mTestResult.getSign());
+            tvFold.setText("Fold：" + mTestResult.getFold());
+            tvSelectPaper.setText("All:" + mTestResult.getALL());
+        }
+
+//        tvCrooked.setText("Crooked：" + mCrooked);
+//        tvBrief.setText("Brief：" + mBrief);
+//        tvStain.setText("Stain：" + mStain);
+//        tvBurrs.setText("Burrs：" + mBurrs);
+//        tvSign.setText("Sign：" + mSign);
+//        tvFold.setText("Fold：" + mFold);
+//        tvSelectPaper.setText("All:" + mALL);
 
         //进度条消失
         mCircleDialog.dismiss();
@@ -335,10 +384,17 @@ public class TestPaperResultActivity extends TakePhotoActivity {
 
         } catch (Exception e) {
             e.printStackTrace();
+            //mCircleDialog.dismiss();
         }
         return result;
     }
 
+    /**
+     * 将服务器返回的流转换成压缩包
+     *
+     * @param input 文件流
+     * @return 压缩包文件
+     */
     public File writeToLocal(InputStream input)
             throws IOException {
         File imagsFile = new File(getExternalFilesDir(null), "images.zip");
@@ -354,11 +410,11 @@ public class TestPaperResultActivity extends TakePhotoActivity {
         return imagsFile;
     }
 
-    List<Images> cropImages = null;
-    List<Images> divideImages = null;
-    List<Images> resultImages = null;
-    List<Images> worryImages = null;
-
+    /**
+     * 获取压缩包中的图片，并分别放到相应的图片集合中国
+     *
+     * @param file 压缩包地址
+     */
     public void readImages(String file) throws Exception {
         ZipFile zf = new ZipFile(file);
         InputStream in = new BufferedInputStream(new FileInputStream(file));
@@ -382,12 +438,19 @@ public class TestPaperResultActivity extends TakePhotoActivity {
                     case "worry/worry_img":                              //不合格的地方
                         worryImages = addImages(zf, ze, worryImages);
                         break;
+                    case "dat":                                    //检测信息
+                        parseJSON(zf, ze);
+
+                        break;
                 }
             }
         }
         zin.closeEntry();
     }
 
+    /**
+     * 添加返回的图片到集合里，以便之后进行显示
+     */
     private List<Images> addImages(ZipFile zf, ZipEntry ze, List<Images> images) throws IOException {
         if (images == null) {
             images = new ArrayList<>();
@@ -400,6 +463,19 @@ public class TestPaperResultActivity extends TakePhotoActivity {
         images.add(images1);
 
         return images;
+    }
+
+    /**
+     * 解析Json
+     */
+    private void parseJSON(ZipFile zf, ZipEntry ze) throws IOException {
+        InputStream is = zf.getInputStream(ze);
+        byte[] bytes = new byte[is.available()];
+        is.read(bytes);
+        String jsonData = new String(bytes);
+        Gson gson = new Gson();
+        //通过传入要解析的数据得到抽象好了的类对象集合
+        mTestResult = gson.fromJson(jsonData, TestResult.class);
     }
 
     /**

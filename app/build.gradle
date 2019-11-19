@@ -27,6 +27,7 @@ dependencies {
     implementation 'com.jph.takephoto:takephoto_library:4.0.3'
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
     implementation 'org.litepal.android:core:2.0.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
