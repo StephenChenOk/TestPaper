@@ -29,7 +29,6 @@ import com.chen.fy.testpaper.beans.Images;
 import com.chen.fy.testpaper.beans.TestPaperInfo;
 import com.chen.fy.testpaper.beans.TestResult;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoActivity;
 import com.jph.takephoto.compress.CompressConfig;
@@ -39,13 +38,10 @@ import com.jph.takephoto.model.TContextWrap;
 import com.jph.takephoto.model.TResult;
 import com.jph.takephoto.permission.PermissionManager;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,7 +60,7 @@ import okhttp3.Response;
 
 public class TestPaperResultActivity extends TakePhotoActivity {
 
-    private static final String TEST_PAPER_SERVER_URL = "http://192.168.43.4:8787/all_infer";
+    public static String TEST_PAPER_SERVER_URL = "http://192.168.43.4:8787/all_infer";
     /**
      * 拍照控件
      */
@@ -126,24 +122,34 @@ public class TestPaperResultActivity extends TakePhotoActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_paper_result_layout);
-
         initView();
-
         initTakePhoto();
-
         if (getIntent() != null) {
-            if (getIntent().getStringExtra("type").equals("相机识别")) {
+            startTestPaper(getIntent().getStringExtra("type"));
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    /**
+     * 开始进行检测试纸
+     */
+    private void startTestPaper(String type) {
+        switch (type) {
+            case "相机识别":
                 //相机拍照照片并剪裁
                 takePhoto.onPickFromCaptureWithCrop(uri, cropOptions);
-            }
-            if (getIntent().getStringExtra("type").equals("图片识别")) {
+                break;
+            case "图片识别":
                 //相册获取照片并剪裁
                 takePhoto.onPickFromGalleryWithCrop(uri, cropOptions);
-            }
+                break;
+            default:
+                break;
         }
-
-        //initData();
-
     }
 
     private void initView() {
@@ -220,14 +226,6 @@ public class TestPaperResultActivity extends TakePhotoActivity {
             tvFold.setText("Fold：" + mTestResult.getFold());
             tvSelectPaper.setText("All:" + mTestResult.getALL());
         }
-
-//        tvCrooked.setText("Crooked：" + mCrooked);
-//        tvBrief.setText("Brief：" + mBrief);
-//        tvStain.setText("Stain：" + mStain);
-//        tvBurrs.setText("Burrs：" + mBurrs);
-//        tvSign.setText("Sign：" + mSign);
-//        tvFold.setText("Fold：" + mFold);
-//        tvSelectPaper.setText("All:" + mALL);
 
         //进度条消失
         mCircleDialog.dismiss();
